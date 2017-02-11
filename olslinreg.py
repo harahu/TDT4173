@@ -1,3 +1,4 @@
+import math
 import numpy as np
 from numpy.linalg import pinv, norm
 import matplotlib.pyplot as plt
@@ -18,8 +19,26 @@ def get_dataset(filename):
 def ols(X, y):
     return pinv(X.T @ X) @ X.T @ y
 
+def sigmoid(z):
+    return (1.0/(1.0+math.exp(-z)))
+
+def logistic_gd(X, y):
+    eta = 0.1
+    w = np.array([0 for _ in range(3)])
+    
+
+    w = w - eta
+
 def E_mse(X, y, w):
     return (1/len(y))*norm(X @ w - y)**2
+
+def E_ce(X, y, w):
+    pass
+
+def dE_ce(X, y, w):
+    dE = np.array([0 for _ in range(3)])
+    for x in X:
+        dE += ()
 
 def h(x, w):
     return w.T @ x
@@ -34,6 +53,7 @@ def plot1D(inS0, outS0, inS1, outS1, inP, outP):
     ax.scatter(inS1, outS1, marker='x', label='Test Data')
     ax.plot(inP, outP, c='r', label='Hypothesis')
     legend = ax.legend(loc='upper center', shadow=True)
+    plt.savefig("1d-linreg.png")
     plt.show()
 
 def regression2D():
@@ -56,9 +76,15 @@ def regression1D():
     outP = [h(np.array([1, x]), w) for x in inP]
     plot1D(inS, y, inS1, ytest, inP, outP)
 
+def classification1D():
+    X, y = get_dataset('datasets/classification/cl-train-1.csv')
+    Xtest, ytest = get_dataset('datasets/classification/cl-test-1.csv')
+    w = logistic_gd(X, y)
+
 def main():
-    regression2D()
-    regression1D()
+    #regression2D()
+    #regression1D()
+    classification1D()
 
 if __name__ == '__main__':
     main()
