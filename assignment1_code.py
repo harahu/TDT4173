@@ -136,6 +136,8 @@ def plot_error(errs, terrs):
     ax.plot([i for i in range(len(errs))], errs, label='Training Data Error')
     ax.plot([i for i in range(len(terrs))], terrs, label='Test Data Error')
     ax.legend(shadow=True)
+    plt.xlabel('Rounds')
+    plt.ylabel(r'$E_{ce}$')
     plt.savefig("gd_error.png")
     plt.show()
 
@@ -148,15 +150,15 @@ def plot_class(X, y, Xtest, ytest, w, polar, fname):
     d_line_y = [d_line(x, w) for x in d_line_x]
     fig, ax = plt.subplots()
     if polar:
-        ax.set_ylim([1.1, 0])
+        ax.set_ylim([0.8, 0])
         ax.set_xlim([-3.5,3.5])
         plt.xlabel(r'$\phi$')
         plt.ylabel(r'$\rho$')
     else:
         ax.set_ylim([-0.1,1.1])
         ax.set_xlim([-0.1,1.1])
-        plt.xlabel('x')
-        plt.ylabel('y')
+        plt.xlabel(r'$x_0$')
+        plt.ylabel(r'$x_1$')
     ax.scatter(x1, y1, marker='o', c='g', label='Class 1 Train')
     ax.scatter(x0, y0, marker='o', c='r', label='Class 0 Train')
     ax.scatter(x1t, y1t, marker='o', c='#005000', label='Class 1 Test')
@@ -242,10 +244,10 @@ def classification3():
     plot_class(X, y, Xtest, ytest, w, True, 'class_2p.png')
 
 def main():
-    print('2D regression task (1)')
-    print('1D regression task (2)')
-    print('1st classification task (3)')
-    print('2nd classification task (4)')
+    print('2D regression task                                (1)')
+    print('1D regression task                                (2)')
+    print('1st classification task                           (3)')
+    print('2nd classification task                           (4)')
     print('2nd classification task with polar transformation (5)')
     selection = int(input('Select: '))
     if selection == 1:
